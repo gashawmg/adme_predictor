@@ -1,0 +1,14 @@
+chemprop==2.2.1
+rdkit
+torch
+lightning
+pytorch-lightning
+numpy
+pandas
+scikit-learn
+scipy
+xgboost
+lightgbm
+catboost
+streamlit
+pillow
