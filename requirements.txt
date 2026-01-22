@@ -1,3 +1,4 @@
+python==3.10 
 chemprop==2.2.1
 rdkit
 torch
