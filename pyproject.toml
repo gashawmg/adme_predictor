@@ -49,6 +49,7 @@ dev = [
 
 [project.urls]
 Repository = "https://github.com/gashawmg/adme_predictor"
+"Live App" = "https://admepredictor.streamlit.app/"
 
 # =============================================================================
 # Ruff (linter + formatter)

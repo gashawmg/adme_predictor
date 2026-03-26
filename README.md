@@ -5,6 +5,7 @@ Excretion, Toxicity) properties of drug-like molecules. Built with
 [ChemProp](https://github.com/chemprop/chemprop) MPNN models, ensemble ML, and
 [Streamlit](https://streamlit.io).
 
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://admepredictor.streamlit.app/)
 [![CI](https://github.com/gashawmg/adme_predictor/actions/workflows/ci.yml/badge.svg)](https://github.com/gashawmg/adme_predictor/actions/workflows/ci.yml)
 
 ---
@@ -109,7 +110,11 @@ python consolidate_models.py
 
 ---
 
-## Running the App
+## Live Demo
+
+**[https://admepredictor.streamlit.app/](https://admepredictor.streamlit.app/)**
+
+## Running Locally
 
 ```bash
 streamlit run app.py
