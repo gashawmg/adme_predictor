@@ -25,8 +25,11 @@ class MoleculeStandardizer:
             return None
     
     def standardize_smiles(self, smiles: str) -> str:
-        """Return standardized canonical SMILES."""
+        """Return standardized canonical SMILES, or None if invalid/empty."""
+        if not smiles or not smiles.strip():
+            return None
         mol = self.sanitize(smiles)
         if mol is None:
             return None
-        return Chem.MolToSmiles(mol, canonical=True)
+        canonical = Chem.MolToSmiles(mol, canonical=True)
+        return canonical if canonical else None
