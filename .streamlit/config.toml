@@ -1,0 +1,20 @@
+[server]
+# Required for GitHub Codespaces / devcontainer preview iframe.
+# When deploying behind a reverse proxy or to Streamlit Cloud,
+# set both to true for proper CSRF/CORS protection.
+enableCORS = false
+enableXsrfProtection = false
+headless = true
+maxUploadSize = 50   # MB — supports large CSV molecule batches
+
+[browser]
+# Disable anonymous usage telemetry — appropriate for proprietary compound data
+gatherUsageStats = false
+
+[theme]
+# Light base is preferred: RDKit PNG molecule images render poorly on dark backgrounds
+base = "light"
+
+[logger]
+# "warning" suppresses the GPU banner printed by config/settings.py on every import
+level = "warning"

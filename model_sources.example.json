@@ -1,0 +1,12 @@
+{
+  "_comment": "Copy this file to model_sources.local.json and fill in your local paths. model_sources.local.json is gitignored and never committed.",
+  "LogD":            "/path/to/your/LogD/model/folder",
+  "LogS":            "/path/to/your/MULTITASK_LOGD_LOGS/folder",
+  "Log_HLM_CLint":   "/path/to/your/Log_HLM_CLint/folder",
+  "Log_MLM_CLint":   "/path/to/your/Log_MLM_CLint/folder",
+  "Log_Caco_Papp_AB": "/path/to/your/Log_Caco_Papp_AB/folder",
+  "Log_Caco_ER":     "/path/to/your/caco_optimized/folder",
+  "Log_Mouse_PPB":   "/path/to/your/Log_Mouse_PPB/folder",
+  "Log_Mouse_BPB":   "/path/to/your/Log_Mouse_BPB/folder",
+  "Log_Mouse_MPB":   "/path/to/your/MULTITASK_MOUSE_BINDING/folder"
+}

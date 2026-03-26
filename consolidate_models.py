@@ -17,22 +17,24 @@ def consolidate_models():
     APP_DIR = os.path.dirname(os.path.abspath(__file__))
     DEST_DIR = os.path.join(APP_DIR, "trained_models")
     
-    # Source paths - UPDATE THESE TO YOUR ACTUAL MODEL LOCATIONS
-    # Format: 'target_name': 'source_path'
-    SOURCE_PATHS = {
-        # Single-task models
-        'LogD': r'C:\Users\gasha\ADMET_competion\best_models_12_30\LogD',
-        'Log_HLM_CLint': r'C:\Users\gasha\ADMET_competion\trained_models_fixed\Log_HLM_CLint',
-        'Log_MLM_CLint': r'C:\Users\gasha\ADMET_competion\trained_models_fixed\Log_MLM_CLint',
-        'Log_Caco_Papp_AB': r'C:\Users\gasha\ADMET_competion\best_models_12_30\Log_Caco_Papp_AB',
-        'Log_Caco_ER': r'C:\Users\gasha\ADMET_competion\best_models_12_30\caco_optimized',
-        'Log_Mouse_PPB': r'C:\Users\gasha\ADMET_competion\best_models_12_30\Log_Mouse_PPB',
-        'Log_Mouse_BPB': r'C:\Users\gasha\ADMET_competion\clean_folder\Log_Mouse_BPB',
-        
-        # Multitask models (stored under output target name)
-        'LogS': r'C:\Users\gasha\ADMET_competion\best_models_01_02\MULTITASK_LOGD_LOGS',
-        'Log_Mouse_MPB': r'C:\Users\gasha\ADMET_competion\best_models_01_02\MULTITASK_MOUSE_BINDING',
-    }
+    # Source paths loaded from model_sources.local.json (gitignored).
+    # Copy model_sources.example.json → model_sources.local.json and fill in your paths.
+    import json
+
+    local_config = os.path.join(APP_DIR, "model_sources.local.json")
+    example_config = os.path.join(APP_DIR, "model_sources.example.json")
+
+    if not os.path.exists(local_config):
+        print(f"\n❌ Missing: {local_config}")
+        print(f"   Copy {example_config} → model_sources.local.json")
+        print("   and fill in your local model paths, then re-run.")
+        return
+
+    with open(local_config) as f:
+        raw = json.load(f)
+
+    # Strip the comment key if present
+    SOURCE_PATHS = {k: v for k, v in raw.items() if not k.startswith("_")}
     
     # ==========================================================================
     # RUN CONSOLIDATION

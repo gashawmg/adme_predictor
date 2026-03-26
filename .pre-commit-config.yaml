@@ -1,0 +1,38 @@
+repos:
+  # ---------------------------------------------------------------------------
+  # General hygiene hooks
+  # ---------------------------------------------------------------------------
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-json
+      - id: check-merge-conflict
+      - id: detect-private-key
+      # Block accidental commits of large binary files (model .ckpt files are 50–200 MB)
+      - id: check-added-large-files
+        args: ["--maxkb=500"]
+
+  # ---------------------------------------------------------------------------
+  # Ruff: linter + formatter (replaces flake8 + black + isort)
+  # ---------------------------------------------------------------------------
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.4.10
+    hooks:
+      - id: ruff
+        args: ["--fix"]
+      - id: ruff-format
+
+  # ---------------------------------------------------------------------------
+  # Custom: block re-introduction of hardcoded Windows user paths
+  # ---------------------------------------------------------------------------
+  - repo: local
+    hooks:
+      - id: no-hardcoded-windows-paths
+        name: No hardcoded Windows user paths
+        language: pygrep
+        entry: 'C:\\Users\\'
+        types: [python]
+        exclude: ^consolidate_models\.py$   # legacy file already fixed
