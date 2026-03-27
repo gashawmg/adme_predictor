@@ -9,7 +9,7 @@ from rdkit import Chem
 from rdkit.Chem import Draw
 
 # ---------------------------------------------------------------------------
-# Example molecules — well-known drugs covering a range of ADMET profiles
+# Example molecules — well-known drugs covering a range of ADME profiles
 # ---------------------------------------------------------------------------
 EXAMPLE_SMILES = [
     ("Aspirin", "CC(=O)Oc1ccccc1C(=O)O"),

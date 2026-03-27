@@ -1,5 +1,5 @@
 # app.py
-"""ADMET Predictor — Streamlit Application."""
+"""ADME Predictor — Streamlit Application."""
 
 import os
 import warnings
@@ -14,14 +14,14 @@ os.environ["PYTHONWARNINGS"] = "ignore"
 
 # Page config — must be first Streamlit command
 st.set_page_config(
-    page_title="ADMET Predictor | OpenADMET Challenge",
+    page_title="ADME Predictor | OpenADMET Challenge",
     page_icon="🧪",
     layout="wide",
     initial_sidebar_state="expanded",
     menu_items={
         "Get help": "https://github.com/gashawmg/adme_predictor/issues",
         "About": (
-            "ADMET Predictor — 14th place out of 370+ participants in the "
+            "ADME Predictor — 14th place out of 370+ participants in the "
             "ExpansionRx-OpenADMET Blind Challenge."
         ),
     },
@@ -126,9 +126,9 @@ def get_engine() -> PredictionEngine:
 def render_header():
     col_title, col_badges = st.columns([3, 2])
     with col_title:
-        st.title("ADMET Property Predictor")
+        st.title("ADME Property Predictor")
         st.markdown(
-            "Predict 9 ADMET properties for drug-like molecules using ensemble "
+            "Predict 9 ADME properties for drug-like molecules using ensemble "
             "MPNN models trained on the **ExpansionRx-OpenADMET Blind Challenge** dataset."
         )
     with col_badges:
@@ -146,7 +146,7 @@ def render_header():
                 14th / 370+ Teams</a>
             <span style='background:#9467bd;color:white;padding:4px 10px;
                 border-radius:12px;font-size:0.8em'>
-                9 ADMET Properties</span>
+                9 ADME Properties</span>
             </div>
             """,
             unsafe_allow_html=True,
@@ -160,10 +160,10 @@ def render_header():
 
         st.markdown(
             """
-**What are ADMET properties?**
-ADMET stands for Absorption, Distribution, Metabolism, Excretion, and Toxicity —
+**What are ADME properties?**
+ADME stands for Absorption, Distribution, Metabolism, and Excretion —
 the key pharmacokinetic properties that determine whether a drug candidate is
-likely to be safe and effective in the body. Early ADMET prediction helps
+likely to be safe and effective in the body. Early ADME prediction helps
 prioritise compounds during drug discovery and reduce costly late-stage attrition.
 
 **How were the models built?**
@@ -213,7 +213,7 @@ def render_sidebar(available_targets: list[str]) -> tuple[list[str], bool]:
         label = f"{display} ({unit})" if unit else display
         target_options[label] = log_name
 
-    # Grouped multiselects per ADMET category
+    # Grouped multiselects per ADME category
     selected_display = []
     for group, members in PROPERTY_GROUPS.items():
         group_labels = [
@@ -365,7 +365,7 @@ def main():
         st.caption(f"{len(smiles_list)} molecule(s) ready for prediction.")
 
     if st.button(
-        "Predict ADMET Properties",
+        "Predict ADME Properties",
         type="primary",
         disabled=not (smiles_list and selected_targets),
     ):

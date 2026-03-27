@@ -165,11 +165,12 @@ CONVERSION_CONFIG = {
 }
 
 # ---------------------------------------------------------------------------
-# Property grouping by ADMET category
+# Property grouping by ADME category
 # ---------------------------------------------------------------------------
 PROPERTY_GROUPS = {
-    "Absorption": ["LogS", "Log_Caco_Papp_AB", "Log_Caco_ER"],
-    "Distribution": ["LogD", "Log_Mouse_PPB", "Log_Mouse_BPB", "Log_Mouse_MPB"],
+    "Physicochemical": ["LogD", "LogS"],
+    "Absorption": ["Log_Caco_Papp_AB", "Log_Caco_ER"],
+    "Distribution": ["Log_Mouse_PPB", "Log_Mouse_BPB", "Log_Mouse_MPB"],
     "Metabolism": ["Log_HLM_CLint", "Log_MLM_CLint"],
 }
 

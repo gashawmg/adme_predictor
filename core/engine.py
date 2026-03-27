@@ -14,7 +14,7 @@ from config.settings import PREDICTION_CONSTRAINTS, TRAINED_MODELS_DIR
 
 
 class PredictionEngine:
-    """Unified prediction engine for all ADMET targets."""
+    """Unified prediction engine for all ADME targets."""
 
     def __init__(self):
         self.predictors = {}
