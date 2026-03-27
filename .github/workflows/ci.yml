@@ -75,7 +75,6 @@ jobs:
       - name: Install unit-test dependencies
         run: |
           pip install pytest pytest-cov
-          pip install torch --index-url https://download.pytorch.org/whl/cpu
           pip install rdkit numpy pandas
 
       - name: Run unit tests (excluding integration)

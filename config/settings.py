@@ -10,26 +10,28 @@ import numpy as np
 warnings.filterwarnings("ignore")
 os.environ["PYTHONWARNINGS"] = "ignore"
 
-import torch
-
 # =============================================================================
 # DEVICE CONFIGURATION - Matching original training script
 # =============================================================================
 
-DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
+try:
+    import torch
 
-# Print GPU status prominently
-print("=" * 60)
-if DEVICE == "cuda":
-    print(f"🚀 GPU ENABLED: {torch.cuda.get_device_name(0)}")
-    print(f"   CUDA Version: {torch.version.cuda}")
-    print(f"   Memory: {torch.cuda.get_device_properties(0).total_memory / 1e9:.1f} GB")
-
-    # Match original script settings
-    torch.set_float32_matmul_precision("medium")
-else:
-    print("⚠️ CPU MODE - No GPU detected")
-print("=" * 60)
+    DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
+    print("=" * 60)
+    if DEVICE == "cuda":
+        print(f"GPU ENABLED: {torch.cuda.get_device_name(0)}")
+        print(f"   CUDA Version: {torch.version.cuda}")
+        print(
+            f"   Memory: {torch.cuda.get_device_properties(0).total_memory / 1e9:.1f} GB"
+        )
+        torch.set_float32_matmul_precision("medium")
+    else:
+        print("CPU MODE - No GPU detected")
+    print("=" * 60)
+except ImportError:
+    torch = None  # type: ignore[assignment]
+    DEVICE = "cpu"
 
 # =============================================================================
 # PATH CONFIGURATION
@@ -52,17 +54,17 @@ def set_global_seed(seed: int = GLOBAL_SEED):
     np.random.seed(seed)
     os.environ["PYTHONHASHSEED"] = str(seed)
 
-    torch.manual_seed(seed)
-    torch.cuda.manual_seed(seed)
-    torch.cuda.manual_seed_all(seed)
-    torch.backends.cudnn.deterministic = True
-    torch.backends.cudnn.benchmark = False
-    os.environ["CUBLAS_WORKSPACE_CONFIG"] = ":4096:8"
-
-    try:
-        torch.use_deterministic_algorithms(True, warn_only=True)
-    except Exception:
-        pass
+    if torch is not None:
+        torch.manual_seed(seed)
+        torch.cuda.manual_seed(seed)
+        torch.cuda.manual_seed_all(seed)
+        torch.backends.cudnn.deterministic = True
+        torch.backends.cudnn.benchmark = False
+        os.environ["CUBLAS_WORKSPACE_CONFIG"] = ":4096:8"
+        try:
+            torch.use_deterministic_algorithms(True, warn_only=True)
+        except Exception:
+            pass
 
 
 # =============================================================================
