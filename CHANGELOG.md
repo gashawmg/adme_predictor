@@ -34,7 +34,10 @@ Versioning follows [Semantic Versioning](https://semver.org/):
 
 ## [0.1.0] - 2026-01-02
 
-Initial release of ADME Predictor.
+Initial release of ADME Predictor. Models were developed for the
+**ExpansionRx-OpenADMET Blind Challenge** (370+ participants) and achieved
+**14th place** on the blind test set using only the official challenge
+training data — no external datasets.
 
 ### Added
 - Streamlit web application (`app.py`) for ADMET property prediction

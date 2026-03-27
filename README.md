@@ -10,19 +10,57 @@ Excretion, Toxicity) properties of drug-like molecules. Built with
 
 ---
 
+## Background
+
+These models were developed for the **[ExpansionRx-OpenADMET Blind Challenge](https://expansionrx.com/openadmet)**,
+a competitive benchmarking challenge with **370+ participants** from academia and industry.
+The submitted predictions on the blind test set achieved **14th place** overall.
+
+All models were trained exclusively on the challenge's official training data — no external
+datasets or pre-trained property models were used. This makes the results a direct reflection
+of what can be achieved with modern MPNN architectures and carefully engineered molecular
+descriptors on the provided data alone.
+
+---
+
 ## Predicted Properties
 
-| Property | Symbol | Unit | Model |
+| Property | Symbol | Unit | Model Architecture |
 |---|---|---|---|
-| Distribution Coefficient | LogD | — | MPNN |
+| Distribution Coefficient | LogD | — | MPNN (ChemProp) |
 | Kinetic Solubility | KSol | µM | Multitask MPNN |
-| Human Liver Microsomal Clearance | HLM CLint | mL/min/kg | MPNN |
-| Mouse Liver Microsomal Clearance | MLM CLint | mL/min/kg | MPNN |
-| Caco-2 Permeability A→B | Papp A>B | 10⁻⁶ cm/s | MPNN |
-| Caco-2 Efflux Ratio | Efflux | — | RF/XGB/LGB ensemble |
-| Mouse Plasma Protein Binding | MPPB | % Unbound | MPNN |
-| Mouse Brain Protein Binding | MBPB | % Unbound | MPNN |
+| Human Liver Microsomal Clearance | HLM CLint | mL/min/kg | MPNN (ChemProp) |
+| Mouse Liver Microsomal Clearance | MLM CLint | mL/min/kg | MPNN + descriptors |
+| Caco-2 Permeability A→B | Papp A>B | 10⁻⁶ cm/s | MPNN (ChemProp) |
+| Caco-2 Efflux Ratio | Efflux | — | RF / XGB / LGB ensemble |
+| Mouse Plasma Protein Binding | MPPB | % Unbound | MPNN + refinement |
+| Mouse Brain Protein Binding | MBPB | % Unbound | MPNN + refinement |
 | Mouse Muscle Protein Binding | MGMB | % Unbound | Multitask MPNN |
+
+### Model design highlights
+
+- **5-fold cross-validation ensembles** for all targets — each prediction is the mean
+  across 5 independently trained folds, which reduces variance and improves generalization.
+- **Hybrid MPNN + descriptor integration** — 40+ RDKit physicochemical descriptors
+  (logP, TPSA, HBD/HBA, ring counts, halogen counts, ionization proxies, etc.) are
+  concatenated with the MPNN molecular embedding before the output head, giving the
+  model both learned graph features and domain-informed structural features.
+- **Multitask learning** for related properties — LogD and LogS share a single model
+  with two output heads; Mouse PPB, BPB, and MPB share a three-head model. This
+  exploits inter-property correlations and regularizes training on smaller datasets.
+- **Caco-2 Efflux Ratio** uses a stacked ensemble of Random Forest, XGBoost, LightGBM,
+  and CatBoost trained on molecular descriptors and fingerprints — gradient boosting
+  methods outperformed MPNN for this target on the challenge data.
+- **Post-prediction refinement stacks** for protein binding targets — a secondary
+  scikit-learn model corrects systematic biases in the MPNN output for PPB and BPB.
+- **No external data** — all models trained solely on ExpansionRx-OpenADMET challenge
+  training data, making this a clean benchmark of model architecture choices.
+
+---
+
+## Live Demo
+
+**[https://admepredictor.streamlit.app/](https://admepredictor.streamlit.app/)**
 
 ---
 
@@ -110,10 +148,6 @@ python consolidate_models.py
 
 ---
 
-## Live Demo
-
-**[https://admepredictor.streamlit.app/](https://admepredictor.streamlit.app/)**
-
 ## Running Locally
 
 ```bash
@@ -179,29 +213,29 @@ ruff format .         # format
 ## Architecture
 
 ```
-app.py                  ← Streamlit entry point
+app.py                  <- Streamlit entry point
 config/
-  settings.py           ← Device, paths, seeds, training hyperparams
-  model_config.py       ← TARGET_CONFIG, MULTITASK_CONFIG, checkpoint versions
-  conversion_config.py  ← Log→actual conversions, units, display names
-  descriptor_config.py  ← Descriptor selection per target
+  settings.py           <- Device, paths, seeds, training hyperparams
+  model_config.py       <- TARGET_CONFIG, MULTITASK_CONFIG, checkpoint versions
+  conversion_config.py  <- Log->actual conversions, units, display names
+  descriptor_config.py  <- Descriptor selection per target
 core/
-  engine.py             ← PredictionEngine — unified inference interface
-  descriptors.py        ← RDKit molecular descriptor calculator (40+ features)
-  standardizer.py       ← SMILES canonicalization and fragment selection
+  engine.py             <- PredictionEngine -- unified inference interface
+  descriptors.py        <- RDKit molecular descriptor calculator (40+ features)
+  standardizer.py       <- SMILES canonicalization and fragment selection
 models/
-  mpnn_predictors.py    ← 4 MPNN predictor variants (script1/2, hybrid_v5, etc.)
-  multitask_predictors.py ← Shared-checkpoint multitask predictors
-  caco_er_model.py      ← RF/XGB/LGB/CatBoost ensemble for Caco-2 ER
-  refinement.py         ← Post-prediction refinement stacks (PPB, BPB)
+  mpnn_predictors.py    <- 4 MPNN predictor variants (script1/2, hybrid_v5, etc.)
+  multitask_predictors.py <- Shared-checkpoint multitask predictors
+  caco_er_model.py      <- RF/XGB/LGB/CatBoost ensemble for Caco-2 ER
+  refinement.py         <- Post-prediction refinement stacks (PPB, BPB)
 ui/
-  components.py         ← SMILES input, molecule rendering
-  results.py            ← Results table, statistics, download button
+  components.py         <- SMILES input, molecule rendering
+  results.py            <- Results table, statistics, download button
 utils/
-  conversion.py         ← DataFrame construction, value formatting
-  helpers.py            ← Checkpoint loading, training config utilities
-  io_utils.py           ← Pickle / CSV I/O
-trained_models/         ← Pre-trained model checkpoints and scalers
+  conversion.py         <- DataFrame construction, value formatting
+  helpers.py            <- Checkpoint loading, training config utilities
+  io_utils.py           <- Pickle / CSV I/O
+trained_models/         <- Pre-trained model checkpoints and scalers
 ```
 
 **Inference flow:**
@@ -221,6 +255,16 @@ trained_models/         ← Pre-trained model checkpoints and scalers
   that Streamlit generation) is incompatible with newer Streamlit releases.
 - **No concurrent session isolation:** Multiple browser tabs share GPU memory. Very large
   batches on multi-user deployments may cause OOM errors.
+
+---
+
+## Citation
+
+If you use this tool in your research, please cite the ExpansionRx-OpenADMET challenge:
+
+> Gashaw M. Goshu. *ADME Predictor: MPNN-based ADMET property prediction.*
+> Developed for the ExpansionRx-OpenADMET Blind Challenge (14th place / 370+ participants).
+> GitHub: https://github.com/gashawmg/adme_predictor
 
 ---
 

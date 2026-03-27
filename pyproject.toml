@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "adme-predictor"
 version = "0.1.0"
-description = "ADMET property predictor for drug-like molecules using MPNN and ensemble ML models"
+description = "ADMET property predictor using MPNN and ensemble ML — 14th place in the ExpansionRx-OpenADMET Blind Challenge (370+ participants)"
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
