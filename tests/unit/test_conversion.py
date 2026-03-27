@@ -1,7 +1,7 @@
 """Unit tests for conversion_config — no model files required."""
 
 import math
-import pytest
+
 from config.conversion_config import (
     CONVERSION_CONFIG,
     convert_log_to_actual,
@@ -10,9 +10,15 @@ from config.conversion_config import (
 )
 
 ALL_TARGETS = [
-    "LogD", "LogS", "Log_HLM_CLint", "Log_MLM_CLint",
-    "Log_Caco_Papp_AB", "Log_Caco_ER",
-    "Log_Mouse_PPB", "Log_Mouse_BPB", "Log_Mouse_MPB",
+    "LogD",
+    "LogS",
+    "Log_HLM_CLint",
+    "Log_MLM_CLint",
+    "Log_Caco_Papp_AB",
+    "Log_Caco_ER",
+    "Log_Mouse_PPB",
+    "Log_Mouse_BPB",
+    "Log_Mouse_MPB",
 ]
 
 

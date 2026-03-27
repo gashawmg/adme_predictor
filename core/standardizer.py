@@ -7,7 +7,7 @@ from rdkit.Chem.MolStandardize.rdMolStandardize import LargestFragmentChooser, U
 
 class MoleculeStandardizer:
     """Standardize molecules for consistent processing."""
-    
+
     def __init__(self):
         self.lfc = LargestFragmentChooser()
         self.uc = Uncharger()
@@ -23,7 +23,7 @@ class MoleculeStandardizer:
             return mol
         except Exception:
             return None
-    
+
     def standardize_smiles(self, smiles: str) -> str:
         """Return standardized canonical SMILES, or None if invalid/empty."""
         if not smiles or not smiles.strip():

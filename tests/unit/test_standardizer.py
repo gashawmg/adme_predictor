@@ -1,7 +1,5 @@
 """Unit tests for MoleculeStandardizer — no model files required."""
 
-import pytest
-
 
 class TestStandardizer:
     def test_valid_smiles_returns_string(self, standardizer):

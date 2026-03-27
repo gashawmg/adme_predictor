@@ -1,14 +1,18 @@
 """Unit tests for model and conversion config integrity — no model files required."""
 
-import pytest
-from config.model_config import ALL_TARGETS, TARGET_CONFIG, MULTITASK_CONFIG
 from config.conversion_config import CONVERSION_CONFIG
-
+from config.model_config import ALL_TARGETS, MULTITASK_CONFIG, TARGET_CONFIG
 
 ALL_EXPECTED_TARGETS = [
-    "LogD", "LogS", "Log_HLM_CLint", "Log_MLM_CLint",
-    "Log_Caco_Papp_AB", "Log_Caco_ER",
-    "Log_Mouse_PPB", "Log_Mouse_BPB", "Log_Mouse_MPB",
+    "LogD",
+    "LogS",
+    "Log_HLM_CLint",
+    "Log_MLM_CLint",
+    "Log_Caco_Papp_AB",
+    "Log_Caco_ER",
+    "Log_Mouse_PPB",
+    "Log_Mouse_BPB",
+    "Log_Mouse_MPB",
 ]
 
 
@@ -42,9 +46,7 @@ class TestTargetConfig:
     def test_multitask_config_groups_have_required_keys(self):
         required = {"targets", "model_folder", "training_style", "scaler_type"}
         for group, cfg in MULTITASK_CONFIG.items():
-            assert required.issubset(cfg.keys()), (
-                f"{group} missing keys: {required - cfg.keys()}"
-            )
+            assert required.issubset(cfg.keys()), f"{group} missing keys: {required - cfg.keys()}"
 
 
 class TestConversionConfigCompleteness:
@@ -55,6 +57,4 @@ class TestConversionConfigCompleteness:
     def test_target_config_and_conversion_config_in_sync(self):
         """Every target in TARGET_CONFIG must have a CONVERSION_CONFIG entry."""
         for t in TARGET_CONFIG:
-            assert t in CONVERSION_CONFIG, (
-                f"TARGET_CONFIG has '{t}' but CONVERSION_CONFIG does not"
-            )
+            assert t in CONVERSION_CONFIG, f"TARGET_CONFIG has '{t}' but CONVERSION_CONFIG does not"

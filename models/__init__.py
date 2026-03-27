@@ -2,31 +2,30 @@
 """Model classes package."""
 
 # Import RefinementStack first so it's available for pickle
-from .refinement import RefinementStack
-
 from .base import BasePredictor
 from .caco_er_model import OptimizedCacoERModel
 from .mpnn_predictors import (
-    MPNNPredictorScript1,
-    MPNNPredictorScript2,
     MPNNPredictorHybridV5Integrated,
     MPNNPredictorHybridV5Refinement,
+    MPNNPredictorScript1,
+    MPNNPredictorScript2,
 )
 from .multitask_predictors import (
-    MultitaskMPNNPredictorUnified,
-    MultitaskMPNNPredictorScript1,
     LegacyMultitaskMPNNPredictor,
+    MultitaskMPNNPredictorScript1,
+    MultitaskMPNNPredictorUnified,
 )
+from .refinement import RefinementStack
 
 __all__ = [
-    'RefinementStack',
-    'BasePredictor',
-    'OptimizedCacoERModel',
-    'MPNNPredictorScript1',
-    'MPNNPredictorScript2',
-    'MPNNPredictorHybridV5Integrated',
-    'MPNNPredictorHybridV5Refinement',
-    'MultitaskMPNNPredictorUnified',
-    'MultitaskMPNNPredictorScript1',
-    'LegacyMultitaskMPNNPredictor',
+    "RefinementStack",
+    "BasePredictor",
+    "OptimizedCacoERModel",
+    "MPNNPredictorScript1",
+    "MPNNPredictorScript2",
+    "MPNNPredictorHybridV5Integrated",
+    "MPNNPredictorHybridV5Refinement",
+    "MultitaskMPNNPredictorUnified",
+    "MultitaskMPNNPredictorScript1",
+    "LegacyMultitaskMPNNPredictor",
 ]

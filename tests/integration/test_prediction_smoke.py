@@ -1,6 +1,7 @@
 """Integration smoke tests — require trained model files. Run with: pytest -m integration"""
 
 from pathlib import Path
+
 import numpy as np
 import pytest
 
@@ -16,13 +17,14 @@ def engine():
     if not LOGD_DIR.exists():
         pytest.skip("trained_models/LogD not found — skipping integration tests")
     from core.engine import PredictionEngine
+
     return PredictionEngine()
 
 
 SAMPLE_SMILES = [
-    "CC(=O)Oc1ccccc1C(=O)O",     # aspirin
+    "CC(=O)Oc1ccccc1C(=O)O",  # aspirin
     "Cn1c(=O)c2c(ncn2C)n(C)c1=O",  # caffeine
-    "CCO",                            # ethanol
+    "CCO",  # ethanol
 ]
 
 

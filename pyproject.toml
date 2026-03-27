@@ -63,7 +63,11 @@ exclude = ["trained_models/", ".devcontainer/", "scripts/"]
 select = ["E", "F", "W", "I", "UP"]
 # E501 line-too-long: ignored because config dicts (model_config.py, settings.py)
 # have long lines that are intentionally readable as tables
-ignore = ["E501"]
+ignore = [
+    "E501",   # line-too-long: config dicts are intentionally wide
+    "E402",   # module-import-not-at-top: app.py requires pickle registration before
+              # model imports; config/settings.py sets env vars before importing torch
+]
 
 [tool.ruff.lint.per-file-ignores]
 # consolidate_models.py uses print() — acceptable for a CLI helper script

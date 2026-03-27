@@ -1,17 +1,17 @@
 # utils/helpers.py
 """Helper functions."""
 
+import glob
 import os
 import re
-import glob
+
 import numpy as np
-from typing import List, Dict
+
+# Add to utils/helpers.py
+import torch
 
 from config.settings import ADAPTIVE_CONFIG
 
-# Add to utils/helpers.py
-
-import torch
 
 def get_lightning_trainer():
     """Get a properly configured Lightning trainer for inference."""
@@ -19,9 +19,7 @@ def get_lightning_trainer():
         import lightning.pytorch as pl
     except ImportError:
         import pytorch_lightning as pl
-    
-    from config.settings import ACCELERATOR, DEVICES
-    
+
     # Explicitly configure for GPU if available
     if torch.cuda.is_available():
         trainer = pl.Trainer(
@@ -43,32 +41,34 @@ def get_lightning_trainer():
             inference_mode=True,
         )
         print("Trainer using CPU")
-    
+
     return trainer
-def get_version_checkpoints(model_dir: str, version: str | int) -> List[str]:
+
+
+def get_version_checkpoints(model_dir: str, version: str | int) -> list[str]:
     """Get checkpoint files for a specific version."""
-    all_ckpts = glob.glob(os.path.join(model_dir, 'fold_*.ckpt'))
+    all_ckpts = glob.glob(os.path.join(model_dir, "fold_*.ckpt"))
     if not all_ckpts:
         return []
-    
+
     fold_versions = {}
     for ckpt_path in all_ckpts:
         filename = os.path.basename(ckpt_path)
-        match = re.match(r'fold_(\d+)(?:-v(\d+))?\.ckpt', filename)
+        match = re.match(r"fold_(\d+)(?:-v(\d+))?\.ckpt", filename)
         if match:
             fold_num = int(match.group(1))
             ver = int(match.group(2)) if match.group(2) else 0
             if fold_num not in fold_versions:
                 fold_versions[fold_num] = {}
             fold_versions[fold_num][ver] = ckpt_path
-    
+
     selected_ckpts = []
-    if version == 'first':
+    if version == "first":
         version = 0
-    
+
     for fold_num in sorted(fold_versions.keys()):
         versions = fold_versions[fold_num]
-        if version == 'latest':
+        if version == "latest":
             selected_ver = max(versions.keys())
         elif isinstance(version, int):
             if version in versions:
@@ -81,9 +81,9 @@ def get_version_checkpoints(model_dir: str, version: str | int) -> List[str]:
                     selected_ver = max(v for v in available if v <= version)
         else:
             selected_ver = max(versions.keys())
-        
+
         selected_ckpts.append(versions[selected_ver])
-    
+
     return selected_ckpts
 
 
@@ -97,15 +97,15 @@ def remove_outliers(y: np.ndarray, threshold: float = 3.5) -> np.ndarray:
     return np.abs(modified_z) < threshold
 
 
-def get_adaptive_config(n_samples: int) -> Dict:
+def get_adaptive_config(n_samples: int) -> dict:
     """Get adaptive configuration based on dataset size."""
-    if n_samples < ADAPTIVE_CONFIG['small']['threshold']:
-        config = ADAPTIVE_CONFIG['small'].copy()
-    elif n_samples < ADAPTIVE_CONFIG['medium']['threshold']:
-        config = ADAPTIVE_CONFIG['medium'].copy()
-    elif n_samples < ADAPTIVE_CONFIG['large']['threshold']:
-        config = ADAPTIVE_CONFIG['large'].copy()
+    if n_samples < ADAPTIVE_CONFIG["small"]["threshold"]:
+        config = ADAPTIVE_CONFIG["small"].copy()
+    elif n_samples < ADAPTIVE_CONFIG["medium"]["threshold"]:
+        config = ADAPTIVE_CONFIG["medium"].copy()
+    elif n_samples < ADAPTIVE_CONFIG["large"]["threshold"]:
+        config = ADAPTIVE_CONFIG["large"].copy()
     else:
-        config = ADAPTIVE_CONFIG['very_large'].copy()
-    config['n_samples'] = n_samples
+        config = ADAPTIVE_CONFIG["very_large"].copy()
+    config["n_samples"] = n_samples
     return config
