@@ -173,7 +173,7 @@ prioritise compounds during drug discovery and reduce costly late-stage attritio
 All models were trained exclusively on the official ExpansionRx-OpenADMET
 challenge training data — no external datasets were used. The architecture
 combines **Message Passing Neural Networks (MPNN)** via ChemProp 2.2.1 with 40+
-curated RDKit molecular descriptors in a hybrid ensemble.
+RDKit molecular descriptors in a hybrid ensemble.
 Five-fold cross-validation ensembles are used for all targets to reduce
 prediction variance. Caco-2 Efflux Ratio uses a gradient-boosting ensemble
 (RF + XGBoost + LightGBM + CatBoost).
