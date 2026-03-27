@@ -6,6 +6,7 @@ enableCORS = false
 enableXsrfProtection = false
 headless = true
 maxUploadSize = 50   # MB — supports large CSV molecule batches
+address = "localhost"
 
 [browser]
 # Disable anonymous usage telemetry — appropriate for proprietary compound data
