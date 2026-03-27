@@ -135,9 +135,12 @@ def render_header():
         st.markdown(
             """
             <div style='padding-top:1.2rem'>
-            <span style='background:#1f77b4;color:white;padding:4px 10px;
-                border-radius:12px;font-size:0.8em;margin-right:6px'>
-                OpenADMET Challenge</span>
+            <a href='https://huggingface.co/spaces/openadmet/OpenADMET-ExpansionRx-Challenge'
+               target='_blank' rel='noopener noreferrer'
+               style='background:#1f77b4;color:white;padding:4px 10px;
+                border-radius:12px;font-size:0.8em;margin-right:6px;
+                text-decoration:none'>
+                OpenADMET Challenge</a>
             <a href='https://openadmet.ghost.io/the-openadmet-expansionrx-blind-challenge-has-come-to-an-end/'
                target='_blank' rel='noopener noreferrer'
                style='background:#2ca02c;color:white;padding:4px 10px;
