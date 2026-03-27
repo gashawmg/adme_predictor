@@ -13,3 +13,4 @@ catboost
 streamlit>=1.29,<1.33
 altair==4.2.2
 pillow
+openpyxl
