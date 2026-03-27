@@ -5,11 +5,13 @@ from .conversion_config import (
     CONVERSION_CONFIG,
     DISPLAY_TO_LOG_NAME,
     LOG_TO_DISPLAY_NAME,
+    PROPERTY_GROUPS,
     convert_actual_to_log,
     convert_log_to_actual,
     format_value_with_unit,
     get_display_name,
     get_unit,
+    is_in_drug_like_range,
 )
 from .descriptor_config import (
     EFFLUX_DESCRIPTOR_CONFIG,
@@ -64,9 +66,11 @@ __all__ = [
     "CONVERSION_CONFIG",
     "DISPLAY_TO_LOG_NAME",
     "LOG_TO_DISPLAY_NAME",
+    "PROPERTY_GROUPS",
     "convert_log_to_actual",
     "convert_actual_to_log",
     "get_unit",
     "get_display_name",
     "format_value_with_unit",
+    "is_in_drug_like_range",
 ]
