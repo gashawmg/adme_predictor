@@ -75,7 +75,7 @@ jobs:
       - name: Install unit-test dependencies
         run: |
           pip install pytest pytest-cov
-          pip install rdkit numpy pandas
+          pip install rdkit numpy pandas scikit-learn
 
       - name: Run unit tests (excluding integration)
         run: pytest tests/unit/ -v --tb=short -m "not integration"

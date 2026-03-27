@@ -22,9 +22,7 @@ try:
     if DEVICE == "cuda":
         print(f"GPU ENABLED: {torch.cuda.get_device_name(0)}")
         print(f"   CUDA Version: {torch.version.cuda}")
-        print(
-            f"   Memory: {torch.cuda.get_device_properties(0).total_memory / 1e9:.1f} GB"
-        )
+        print(f"   Memory: {torch.cuda.get_device_properties(0).total_memory / 1e9:.1f} GB")
         torch.set_float32_matmul_precision("medium")
     else:
         print("CPU MODE - No GPU detected")
