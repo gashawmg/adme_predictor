@@ -1,7 +1,6 @@
 # ADME Predictor
 
-A web application for predicting ADMET (Absorption, Distribution, Metabolism,
-Excretion, Toxicity) properties of drug-like molecules. Built with
+A web application for predicting ADM(Absorption, Distribution, Metabolism) properties of drug-like molecules. Built with
 [ChemProp](https://github.com/chemprop/chemprop) MPNN models, ensemble ML, and
 [Streamlit](https://streamlit.io).
 
