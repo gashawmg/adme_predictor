@@ -12,7 +12,7 @@ Excretion, Toxicity) properties of drug-like molecules. Built with
 
 ## Background
 
-These models were developed for the **[ExpansionRx-OpenADMET Blind Challenge](https://expansionrx.com/openadmet)**,
+These models were developed for the **[ExpansionRx-OpenADMET Blind Challenge](https://huggingface.co/spaces/openadmet/OpenADMET-ExpansionRx-Challenge)**,
 a competitive benchmarking challenge with **370+ participants** from academia and industry.
 The submitted predictions on the blind test set achieved **14th place** overall.
 
