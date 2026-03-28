@@ -22,8 +22,8 @@ st.set_page_config(
         "Get help": "https://github.com/gashawmg/adme_predictor/issues",
         "About": (
             "ADME Predictor — 14th place out of 370+ participants in the "
-            "<a href='https://huggingface.co/spaces/openadmet/OpenADMET-ExpansionRx-Challenge' "
-            "target='_blank' rel='noopener noreferrer'>ExpansionRx-OpenADMET Blind Challenge</a>."
+            "[ExpansionRx-OpenADMET Blind Challenge]"
+            "(https://huggingface.co/spaces/openadmet/OpenADMET-ExpansionRx-Challenge)."
         ),
     },
 )
