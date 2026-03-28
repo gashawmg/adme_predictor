@@ -22,7 +22,8 @@ st.set_page_config(
         "Get help": "https://github.com/gashawmg/adme_predictor/issues",
         "About": (
             "ADME Predictor — 14th place out of 370+ participants in the "
-            "ExpansionRx-OpenADMET Blind Challenge."
+            "<a href='https://huggingface.co/spaces/openadmet/OpenADMET-ExpansionRx-Challenge' "
+            "target='_blank' rel='noopener noreferrer'>ExpansionRx-OpenADMET Blind Challenge</a>."
         ),
     },
 )
@@ -129,7 +130,8 @@ def render_header():
         st.title("ADME Property Predictor")
         st.markdown(
             "Predict 9 ADME properties for drug-like molecules using ensemble "
-            "MPNN models trained on the **ExpansionRx-OpenADMET Blind Challenge** dataset."
+            "MPNN models trained on the [ExpansionRx-OpenADMET Blind Challenge]"
+            "(https://huggingface.co/spaces/openadmet/OpenADMET-ExpansionRx-Challenge) dataset."
         )
     with col_badges:
         st.markdown(
@@ -391,7 +393,8 @@ def main():
     st.divider()
     st.markdown(
         "<div style='text-align:center;color:gray;font-size:0.78em'>"
-        "Built for the <b>ExpansionRx-OpenADMET Blind Challenge</b> &nbsp;|&nbsp; "
+        "Built for the <a href='https://huggingface.co/spaces/openadmet/OpenADMET-ExpansionRx-Challenge' "
+        "target='_blank' rel='noopener noreferrer'><b>ExpansionRx-OpenADMET Blind Challenge</b></a> &nbsp;|&nbsp; "
         "<a href='https://github.com/gashawmg/adme_predictor'>GitHub</a> &nbsp;|&nbsp; "
         "<a href='https://admepredictor.streamlit.app/'>Live Demo</a> &nbsp;|&nbsp; "
         "MIT License &nbsp;|&nbsp; "
